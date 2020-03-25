@@ -1,3 +1,9 @@
+def gcd(a, b):
+    '''gcd retourne le plus grand commun diviseur (greatest common divisor)
+           de 2 nombres donnés.'''
+    while b:
+        a, b = b, a%b
+    return a
 class Rational:
     def __init__(self,num,denum):
         self.__num = num
@@ -32,20 +38,12 @@ class Rational:
         return b
 
     def simplification(self):
-        if self.__num < self.__denum: # si numérateur inférieur a dénominateur
-            for i in range (1,self.__num): # pour i allant de 0 a x
-                while self.__num%i!=0 and self.__denum%i!=0: # tant que le reste de x/i et y/i est différent de 0, alors :
-                    i-=1
-                    self.__num=self.__num/i # divisé x par le diviseur commun (i)
-                    self.__denum=self.__denum/i # divisé y par le diviseur commun (i)
+        fc=gcd(self.__num,self.__denum)
+        self.__num /= fc
+        self.__denum /= fc
+        return self.__num,self.__denum
 
-        else:
-            for i in range (1,self.__denum): # pour i allant de 0 a y
-                while self.__num%i!=0 and self.__denum%i!=0: # tant que le reste de x/i et y/i est différent de 0, alors :
-                    i-=1
-                    self.__num=self.__num/i # divisé x par le diviseur commun (i)
-                    self.__denum=self.__denum/i # divisé y par le diviseur commun (i)
-        return self.__num, self.__denum
+
 if __name__ == "__main__":
     r1 = Rational(1,2)
     r2 = Rational(1,3)
